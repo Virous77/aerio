@@ -35,8 +35,9 @@ img {
 input {
   border: none;
   font-size: 1rem;
-  background-color: white;
+  background-color: whitesmoke;
   padding: 8px;
+  outline: none;
 }
 
 button {
@@ -44,19 +45,5 @@ button {
   padding: 8px 2rem;
   font-size: 1rem;
   color: white;
+  cursor: pointer;
 }
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

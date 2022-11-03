@@ -30,7 +30,7 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink
-          to="/register"
+          to="/login"
           className={({ isActive }) => (isActive ? "activeNav" : "notActive")}
         >
           <li>Sign in</li>
