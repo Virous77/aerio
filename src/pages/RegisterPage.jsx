@@ -6,7 +6,7 @@ import { useAuthContext } from "../stores/userContext";
 import GoogleAuth from "../components/GoogleAuth";
 
 const RegisterPage = () => {
-  const { user, setUser, signInForm } = useAuthContext();
+  const { user, setUser, signInForm, isLoading } = useAuthContext();
   const { name, email, password } = user;
 
   const [showPassword, setShowPassword] = useState(false);
@@ -62,7 +62,9 @@ const RegisterPage = () => {
             </div>
 
             <div className="formButton">
-              <button>Sign Up</button>
+              <button disabled={isLoading}>
+                {isLoading ? "Processing..." : "Sign Up"}
+              </button>
             </div>
           </form>
 

@@ -10,6 +10,8 @@ import {
 } from "./pages/index";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/layouts/Navbar";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      <ToastContainer />
     </section>
   );
 }
