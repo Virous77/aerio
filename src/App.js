@@ -9,10 +9,12 @@ import {
   OffersPage,
 } from "./pages/index";
 import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/layouts/Navbar";
 
 function App() {
   return (
     <section className="App">
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

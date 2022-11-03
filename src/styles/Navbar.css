@@ -1,0 +1,55 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 1rem 3rem;
+  box-shadow: 4px 3px 8px rgba(0, 0, 0, 0.03);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: rgb(156, 56, 250);
+}
+
+.logo img {
+  width: 4rem;
+  height: 3.5rem;
+}
+
+.logo h1 {
+  font-size: 2rem;
+  margin-left: -0.5rem;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.activeNav {
+  color: black;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+
+.notActive {
+  font-size: 1rem;
+  color: rgb(156, 56, 250);
+  text-transform: capitalize;
+}
+
+.navLinks li:hover {
+  opacity: 0.7;
+}
