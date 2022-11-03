@@ -109,13 +109,16 @@
   width: 100%;
 }
 
-.loginGoogle button {
+.loginGoogle span {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+}
+
+.loginGoogle button {
   background-color: rgb(128, 128, 128);
   width: 100%;
-  justify-content: center;
   padding: 6px;
   border-radius: 3px;
 }

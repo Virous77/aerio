@@ -3,7 +3,7 @@ import "../styles/Login.css";
 import { useAuthContext } from "../stores/userContext";
 
 const ForgetPage = () => {
-  const { user, setUser, forgetForm } = useAuthContext();
+  const { user, setUser, forgetForm, isLoading } = useAuthContext();
   const { email } = user;
 
   const handleChange = (e) => {
@@ -29,7 +29,7 @@ const ForgetPage = () => {
             </div>
 
             <div className="formButton">
-              <button>Submit</button>
+              <button>{isLoading ? "Processing..." : "Submit"}</button>
             </div>
           </form>
         </div>
