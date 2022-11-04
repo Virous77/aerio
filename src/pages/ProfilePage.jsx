@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import "../styles/Profile.css";
 import { useAuthContext } from "../stores/userContext";
 import { setDoc, doc } from "firebase/firestore";
-import { db } from "../firebase/firebase.config";
+import { auth, db } from "../firebase/firebase.config";
 import { toast } from "react-toastify";
 import useFetchSingleData from "../hooks/useFetchSingleData";
+import { updateProfile } from "firebase/auth";
+import { FaHome } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
   const { setUser, user, logout } = useAuthContext();
@@ -42,6 +45,11 @@ const ProfilePage = () => {
     };
 
     try {
+      if (auth.currentUser.displayName !== tempName) {
+        await updateProfile(auth.currentUser, {
+          displayName: tempName,
+        });
+      }
       await setDoc(doc(db, "users", uid), changedData);
       localStorage.setItem("aerio", JSON.stringify(tempData));
       setUser(tempData);
@@ -71,18 +79,7 @@ const ProfilePage = () => {
             <p className="setUser setUserName">{activeUser.name}</p>
           )}
 
-          {edit ? (
-            <div className="formInput">
-              <input
-                type="text"
-                value={activeUser.email}
-                name="email"
-                onChange={handleChange}
-              />
-            </div>
-          ) : (
-            <p className="setUser">{activeUser.email}</p>
-          )}
+          <p className="setUser">{activeUser.email}</p>
         </form>
 
         <div className="editProfile">
@@ -101,13 +98,22 @@ const ProfilePage = () => {
                 chnageProfileData();
               }}
             >
-              {loading ? "Processing.." : "Submit"}
+              {loading ? "Processing.." : "Save Changes"}
             </button>
           )}
 
           <button className="logout" type="button" onClick={logout}>
             Sign Out
           </button>
+        </div>
+
+        <div className="createListing">
+          <Link to="/create-listing">
+            <button>
+              <FaHome />
+              sell or rent your home
+            </button>
+          </Link>
         </div>
       </div>
     </section>

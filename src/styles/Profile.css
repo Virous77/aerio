@@ -44,6 +44,10 @@
   border-radius: 3px;
 }
 
+.logout:hover {
+  background-color: rgb(223, 3, 3);
+}
+
 .editButton {
   color: blue;
   background-color: transparent;
@@ -53,4 +57,26 @@
 .saveButton {
   background-color: blue;
   border-radius: 3px;
+}
+
+.createListing {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createListing button {
+  margin: auto;
+  background-color: rgb(49, 49, 247);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: capitalize;
+  border-radius: 3px;
+}
+
+.createListing button:hover {
+  background-color: rgb(18, 18, 249);
 }
