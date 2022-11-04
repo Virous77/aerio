@@ -20,6 +20,7 @@ export const AuthContextProvider = ({ children }) => {
     name: "",
     email: "",
     password: "",
+    isLoggedIn: false,
   };
 
   const tempLocalData = () => {
@@ -29,11 +30,10 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const [user, setUser] = useState(tempLocalData());
-
   const [isLoading, setIsLoading] = useState(false);
   const [googleLoading, setGoogleLaoding] = useState(false);
 
-  const { name, email, password } = user;
+  const { name, email, password, isLoggedIn } = user;
   const navigate = useNavigate();
 
   //signUp with email/pass
@@ -67,6 +67,7 @@ export const AuthContextProvider = ({ children }) => {
       const tempData = {
         name: name,
         email: email,
+        isLoggedIn: true,
         uid: user.uid,
       };
 
@@ -74,6 +75,7 @@ export const AuthContextProvider = ({ children }) => {
 
       await setDoc(doc(db, "users", user.uid), formDataCopy);
       setIsLoading(false);
+      setUser(tempData);
       navigate("/");
       toast.success(`Welcome ${name}`);
     } catch (error) {
@@ -85,7 +87,6 @@ export const AuthContextProvider = ({ children }) => {
   //Login with Email/Pass
   const loginForm = async (e) => {
     e.preventDefault();
-
     setIsLoading(true);
 
     if (!email || !password) {
@@ -100,12 +101,13 @@ export const AuthContextProvider = ({ children }) => {
       const tempData = {
         name: loginuser.user.displayName,
         email: email,
+        isLoggedIn: true,
         uid: loginuser.user.uid,
       };
-
       localStorage.setItem("aerio", JSON.stringify(tempData));
 
       setIsLoading(false);
+      setUser(tempData);
       navigate("/");
       toast.success(`Welcome Back ${loginuser.user.displayName}`);
     } catch (error) {
@@ -133,6 +135,7 @@ export const AuthContextProvider = ({ children }) => {
       const tempData = {
         name: displayName,
         email: email,
+        isLoggedIn: true,
         uid: uid,
       };
 
@@ -140,6 +143,7 @@ export const AuthContextProvider = ({ children }) => {
 
       await setDoc(doc(db, "users", uid), formDataCopy);
       setGoogleLaoding(false);
+      setUser(tempData);
       navigate("/");
       toast.success(`Welcome ${displayName}`);
     } catch (error) {
@@ -174,8 +178,9 @@ export const AuthContextProvider = ({ children }) => {
   const logout = async () => {
     try {
       await signOut(auth);
-      localStorage.clear("aerio");
       toast.success("Logout was successful!");
+      setUser(initialState);
+      localStorage.removeItem("aerio");
       navigate("/login");
     } catch (error) {
       setIsLoading(false);
@@ -195,6 +200,8 @@ export const AuthContextProvider = ({ children }) => {
         isLoading,
         googleLoading,
         logout,
+        isLoggedIn,
+        tempLocalData,
       }}
     >
       {children}

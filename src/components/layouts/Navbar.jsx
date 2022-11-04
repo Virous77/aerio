@@ -3,8 +3,11 @@ import "../../styles/Navbar.css";
 import logo from "../../images/logo1.svg";
 import { NavLink } from "react-router-dom";
 import { CgMenuRightAlt } from "react-icons/cg";
+import { useAuthContext } from "../../stores/userContext";
 
 const Navbar = () => {
+  const { isLoggedIn } = useAuthContext();
+
   return (
     <nav className="navbar">
       <NavLink to="/">
@@ -29,12 +32,21 @@ const Navbar = () => {
           <li>Offers</li>
         </NavLink>
 
-        <NavLink
-          to="/login"
-          className={({ isActive }) => (isActive ? "activeNav" : "notActive")}
-        >
-          <li>Sign in</li>
-        </NavLink>
+        {!isLoggedIn ? (
+          <NavLink
+            to="/login"
+            className={({ isActive }) => (isActive ? "activeNav" : "notActive")}
+          >
+            <li>Sign in</li>
+          </NavLink>
+        ) : (
+          <NavLink
+            to="/profile"
+            className={({ isActive }) => (isActive ? "activeNav" : "notActive")}
+          >
+            <li>Profile</li>
+          </NavLink>
+        )}
 
         <CgMenuRightAlt className="mobileMenu" />
       </ul>
