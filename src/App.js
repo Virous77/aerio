@@ -8,6 +8,8 @@ import {
   ForgetPage,
   OffersPage,
   CreateListingPage,
+  CategoryPage,
+  EditListingPage,
 } from "./pages/index";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/layouts/Navbar";
@@ -41,6 +43,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/edit-listing/:id"
+          element={
+            <ProtectedRoute>
+              <EditListingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/category/:type/:id" element={<CategoryPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <ToastContainer />

@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/CreateListing.css";
-import { useListingContext } from "../stores/listingContext";
+import { useParams, useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db, auth } from "../firebase/firebase.config";
 
-const CreateListingPage = () => {
-  const {
-    formListing,
-    handleListingForm,
-    handleChange,
-    setFormListing,
-    isLoading,
-    geolocationEnabled,
-  } = useListingContext();
+import { toast } from "react-toastify";
+import { updateDoc, serverTimestamp } from "firebase/firestore";
+import Loader from "../components/UI/Loader";
+
+const EditListingPage = () => {
+  const initialState = {
+    type: "rent",
+    name: "",
+    beds: 1,
+    bath: 1,
+    parking: false,
+    furnished: false,
+    address: "",
+    description: "",
+    offer: false,
+    offerPrice: 0,
+    regularPrice: 0,
+    images: "",
+    active: false,
+    latitude: 0,
+    longitude: 0,
+  };
+  const geolocationEnabled = false;
+  const [listing, setListing] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formListing, setFormListing] = useState(initialState);
   const {
     name,
     beds,
@@ -27,10 +46,115 @@ const CreateListingPage = () => {
     active,
   } = formListing;
 
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (!e.target.files) {
+      setFormListing({ ...formListing, [name]: value });
+    }
+
+    if (e.target.files) {
+      setFormListing((prevState) => ({ ...prevState, images: e.target.files }));
+    }
+  };
+
+  //Fetch single data
+  useEffect(() => {
+    setIsLoading(true);
+    async function fetchListing() {
+      const docRef = doc(db, "aerioListing", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setIsLoading(false);
+        setListing(docSnap.data());
+        setFormListing({ ...docSnap.data() });
+      }
+    }
+    fetchListing();
+  }, []);
+
+  //set authentication for security
+
+  //Edit Form
+  const handleListingForm = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const { address, offerPrice, regularPrice, images, latitude, longitude } =
+      formListing;
+
+    if (auth.currentUser.uid !== listing?.uid) {
+      toast.error(`This listing is not associate to you.`);
+      navigate("/profile");
+      return;
+    }
+
+    if (+offerPrice > +regularPrice) {
+      setIsLoading(false);
+      toast.error("Offer Price should be less than regular price");
+      return;
+    }
+
+    if (images?.length > 6) {
+      setIsLoading(false);
+      toast.error("Images should be between(1-6)");
+      return;
+    }
+
+    let geolocation = {};
+
+    if (!geolocationEnabled) {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODING_APIKEY}`
+      );
+
+      setIsLoading(false);
+      const data = await response.json();
+      geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
+      geolocation.lng = data.results[0]?.geometry.location.lng ?? 0;
+
+      if (data.status === "ZERO_RESULTS") {
+        setIsLoading(false);
+        toast.error("Please enter correct address!");
+        return;
+      }
+    } else {
+      geolocation.lat = latitude;
+      geolocation.lng = longitude;
+    }
+
+    const formDataCopy = {
+      ...formListing,
+      imgUrls: formListing.imgUrls,
+      geolocation,
+      timestamp: formListing.timestamp,
+      editedAt: serverTimestamp(),
+      uid: auth.currentUser.uid,
+    };
+
+    delete formDataCopy.images;
+    delete formDataCopy.active;
+    !formDataCopy.offer && delete formDataCopy.offerPrice;
+    delete formDataCopy.latitude;
+    delete formDataCopy.longitude;
+
+    const docref = doc(db, "aerioListing", id);
+
+    await updateDoc(docref, formDataCopy);
+    setIsLoading(false);
+    navigate("/profile");
+    toast.success("Listing modified successfully!");
+
+    setFormListing(initialState);
+  };
+
   return (
     <section className="listingBar">
       <div className="listingCard">
-        <h1>Create a Listing</h1>
+        <h1>Edit Listing</h1>
 
         <form onSubmit={handleListingForm}>
           <div className="selectOne">
@@ -277,13 +401,20 @@ const CreateListingPage = () => {
             />
           </div>
 
-          <div className="first">
+          <div className="first five">
             <label>property Image</label>
-            <input type="file" id="images" multiple onChange={handleChange} />
+            <p>Images are not editable.</p>
+            <div className="third">
+              {formListing?.imgUrls?.map((image, idx) => (
+                <div key={idx} className="activeListingImage">
+                  <img src={image} alt="" />
+                </div>
+              ))}
+            </div>
           </div>
 
           <button className="listingSubmit">
-            {isLoading ? "Submitting.." : "Submit"}
+            {isLoading ? "Submitting.." : "Save Changes"}
           </button>
         </form>
       </div>
@@ -291,4 +422,4 @@ const CreateListingPage = () => {
   );
 };
 
-export default CreateListingPage;
+export default EditListingPage;

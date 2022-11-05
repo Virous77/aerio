@@ -8,6 +8,7 @@ import useFetchSingleData from "../hooks/useFetchSingleData";
 import { updateProfile } from "firebase/auth";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import MyListing from "../components/content/MyListing";
 
 const ProfilePage = () => {
   const { setUser, user, logout } = useAuthContext();
@@ -116,6 +117,7 @@ const ProfilePage = () => {
           </Link>
         </div>
       </div>
+      <MyListing />
     </section>
   );
 };

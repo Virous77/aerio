@@ -77,3 +77,19 @@
 .listingSubmit:hover {
   background-color: rgb(46, 46, 251);
 }
+
+.third {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.first p {
+  margin-bottom: 0;
+  font-size: 0.7rem;
+  color: red;
+}
+
+.five label {
+  text-align: center;
+}
