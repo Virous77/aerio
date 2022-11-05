@@ -51,7 +51,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/category/:type/:id" element={<CategoryPage />} />
+        <Route path="/details/:type/:id" element={<CategoryPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <ToastContainer />

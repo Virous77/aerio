@@ -50,7 +50,7 @@ const MyListing = () => {
             return (
               <li className="listingList" key={id}>
                 <div className="listingTop">
-                  <Link to={`/category/${type}/${id}`}>
+                  <Link to={`/details/${type}/${id}`}>
                     <img src={imgUrls[0]} alt={name} loading="lazy" />
                     <div className="listingDate">
                       <Moment fromNow>{timestamp.toDate()}</Moment>

@@ -5,6 +5,13 @@
   height: 20vh;
 }
 
+.mainloader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .loaderIcon {
   font-size: 2.5rem;
   color: rgb(144, 30, 252);
