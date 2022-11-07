@@ -10,6 +10,7 @@ import {
   CreateListingPage,
   CategoryPage,
   EditListingPage,
+  ListingTypePage,
 } from "./pages/index";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/layouts/Navbar";
@@ -51,7 +52,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/category/:type" element={<ListingTypePage />} />
         <Route path="/details/:type/:id" element={<CategoryPage />} />
+
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <ToastContainer />

@@ -170,3 +170,30 @@
     width: 100%;
   }
 }
+
+@media (max-width: 992px) {
+  .detailsContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .leaflet-container {
+    height: 400px;
+  }
+
+  .mapsOk {
+    height: 400px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .detailsContent {
+    padding: 1rem 0;
+  }
+
+  .mapsOk {
+    padding: 0 1rem;
+  }
+}

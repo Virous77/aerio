@@ -30,9 +30,7 @@ const DeatilsLeft = ({ userData }) => {
     return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   const discPrice = +regularPrice - +offerPrice;
-
   const { userData: data } = useFetchSingleData("users", uid);
-
   const [contactLandLord, setContactLandLord] = useState(false);
 
   return (

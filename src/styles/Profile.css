@@ -80,3 +80,16 @@
 .createListing button:hover {
   background-color: rgb(18, 18, 249);
 }
+
+@media (max-width: 520px) {
+  .profileCard {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .profileBar {
+    padding-top: 5rem;
+  }
+}

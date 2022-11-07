@@ -47,3 +47,25 @@ button {
   color: white;
   cursor: pointer;
 }
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+.hideLoad {
+  display: none;
+}
+
+.listingTypeBars {
+  padding-top: 6rem;
+}
+
+@media (max-width: 768px) {
+  .listingTypeBars {
+    padding-top: 5rem;
+  }
+}

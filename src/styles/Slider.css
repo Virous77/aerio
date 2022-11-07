@@ -32,6 +32,7 @@
   color: black;
   font-size: 1.5rem;
   cursor: pointer;
+  width: fit-content;
 }
 
 .share {
@@ -66,5 +67,11 @@
 @media (max-width: 1000px) {
   .share {
     right: 8%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sliderBar {
+    margin-top: 3rem;
   }
 }

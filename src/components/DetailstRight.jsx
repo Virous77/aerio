@@ -2,12 +2,10 @@ import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const DetailstRight = ({ userData }) => {
-  const { geolocation } = userData;
-
   const position = userData?.geolocation;
 
   return (
-    <div>
+    <div className="mapsOk">
       <MapContainer
         center={position}
         zoom={15}

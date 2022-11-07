@@ -1,0 +1,28 @@
+.errorBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.errorWrap {
+  width: 500px;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.errorWrap img {
+  width: 100%;
+  height: 400px;
+  display: block;
+}
+
+.errorWrap button {
+  background-color: rgb(153, 52, 249);
+  border-radius: 3px;
+  margin-top: 1rem;
+}
+
+.errorWrap button:hover {
+  background-color: blueviolet;
+}

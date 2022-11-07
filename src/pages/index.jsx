@@ -8,3 +8,4 @@ export { default as OffersPage } from "./OffersPage";
 export { default as CreateListingPage } from "./CreateListingPage";
 export { default as CategoryPage } from "./CategoryPage";
 export { default as EditListingPage } from "./EditListingPage";
+export { default as ListingTypePage } from "./ListingTypePage";

@@ -1,0 +1,21 @@
+.offerBar {
+  padding-top: 6rem;
+}
+
+.offerHead {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  color: blueviolet;
+  text-align: center;
+}
+
+.reachNone {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .offerBar {
+    padding-top: 5rem;
+  }
+}

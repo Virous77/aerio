@@ -137,3 +137,15 @@
   right: 3%;
   cursor: pointer;
 }
+
+@media (max-width: 540px) {
+  .loginCard {
+    width: 95%;
+    margin: auto;
+    padding: 2rem 1rem;
+  }
+
+  .loginWrap {
+    width: 100%;
+  }
+}

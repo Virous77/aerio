@@ -9,17 +9,12 @@ import "../styles/Category.css";
 
 const CategoryPage = () => {
   const { id } = useParams();
-
   const { userData, loading } = useFetchSingleData("aerioListing", id);
-
-  console.log(userData);
-
   if (loading) return <MainLoader />;
 
   return (
     <section className="listingDetails">
       <Slider image={userData.imgUrls} />
-
       <div className="detailsContent">
         <DeatilsLeft userData={userData} />
         <DetailstRight userData={userData} />

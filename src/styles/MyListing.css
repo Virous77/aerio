@@ -139,19 +139,19 @@
   color: red;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1305px) {
   .listingListCard {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 920px) {
+@media (max-width: 994px) {
   .listingListCard {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 675px) {
   .listingListCard {
     grid-template-columns: 1fr;
   }

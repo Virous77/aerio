@@ -3,10 +3,8 @@ import "../styles/CreateListing.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../firebase/firebase.config";
-
 import { toast } from "react-toastify";
 import { updateDoc, serverTimestamp } from "firebase/firestore";
-import Loader from "../components/UI/Loader";
 
 const EditListingPage = () => {
   const initialState = {
@@ -74,9 +72,7 @@ const EditListingPage = () => {
       }
     }
     fetchListing();
-  }, []);
-
-  //set authentication for security
+  }, [id]);
 
   //Edit Form
   const handleListingForm = async (e) => {

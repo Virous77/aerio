@@ -93,3 +93,14 @@
 .five label {
   text-align: center;
 }
+
+@media (max-width: 520px) {
+  .listingCard {
+    width: 100%;
+    height: auto;
+  }
+
+  .listingBar {
+    margin-top: 5rem;
+  }
+}

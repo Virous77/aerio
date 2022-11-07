@@ -1,18 +1,22 @@
 import React from "react";
-import "../../styles/MyListing.css";
-import Loader from "../UI/Loader";
-import { useAuthContext } from "../../stores/userContext";
-import useFetchCollection from "../../hooks/useFetchCollection";
-import { TfiLocationPin } from "react-icons/tfi";
-import { Link } from "react-router-dom";
+import "../styles/Home.css";
+import MainLoader from "../components/UI/MainLoader";
 import Moment from "react-moment";
-import { useListingContext } from "../../stores/listingContext";
+import { Link } from "react-router-dom";
+import { TfiLocationPin } from "react-icons/tfi";
 
-const MyListing = () => {
-  const { user } = useAuthContext();
-  const { data, loading } = useFetchCollection(user.uid);
-  const { deleteListing } = useListingContext();
-
+const HomeListing = ({
+  data,
+  loading,
+  head,
+  className,
+  reachClass,
+  reach,
+  reachName,
+  fetchIt,
+  hideLoad,
+  loaderMore,
+}) => {
   const price = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
@@ -25,13 +29,17 @@ const MyListing = () => {
     return text;
   };
 
-  if (loading) return <Loader />;
+  if (loading) return <MainLoader />;
 
   return (
-    <section className="myListingBar">
-      <h1>My Listing</h1>
+    <div className="homeListingType">
+      <h1 className={className}>{head}</h1>
 
-      <ul className="listingListCard">
+      <Link to={reach}>
+        <p className={reachClass}>go for more {reachName}</p>
+      </Link>
+
+      <ul className="listingListCards">
         {data.length > 0 &&
           data.map((listing) => {
             const {
@@ -61,11 +69,11 @@ const MyListing = () => {
                 <div className="listingDown">
                   <div className="listingLocation">
                     <TfiLocationPin className="locationIcon" />
-                    <p>{shorting(address, 27)}</p>
+                    <p>{shorting(address, 22)}</p>
                   </div>
 
-                  <div className="listingName">
-                    <p>{shorting(name, 20)}</p>
+                  <div className="listingNames">
+                    <p>{shorting(name, 17)}</p>
                   </div>
 
                   <div className="listingPrice">
@@ -93,28 +101,20 @@ const MyListing = () => {
                         {bath} {bath > 1 ? "Baths" : "Bath"}
                       </p>
                     </div>
-
-                    <div className="listingAction">
-                      <div className="listingEdit">
-                        <Link to={`/edit-listing/${id}`}>
-                          <span className="edit">EDIT</span>
-                        </Link>
-                        <span
-                          className="delete"
-                          onClick={() => deleteListing(id)}
-                        >
-                          DELETE
-                        </span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </li>
             );
           })}
       </ul>
-    </section>
+
+      {loaderMore && (
+        <div className={`loadIt ${hideLoad}`}>
+          <button onClick={fetchIt}>Load</button>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default MyListing;
+export default HomeListing;
